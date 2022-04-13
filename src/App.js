@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React,{ useEffect, useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { bypassCheckHandler } from './redux/user/action'
+import RouteControl from './components/RouteControl';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
+
+let isInitial = true;  //avoid-first-rendering
 
 function App() {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if(isInitial) {
+      isInitial = false;
+      dispatch(bypassCheckHandler());
+      console.log("===resding");
+    }
+  },[]);
+
+//console.log("loginInfo:",loginInfo);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+         <RouteControl />
+      </BrowserRouter>
     </div>
   );
 }
