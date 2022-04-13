@@ -1,0 +1,1 @@
+export const CUR_MENU = 'menu/CUR_MENU';

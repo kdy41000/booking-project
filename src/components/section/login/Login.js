@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import { 
     Form,
     FormGroup,
@@ -10,7 +10,8 @@ import {
     Button
 
 } from 'reactstrap';
-import { loginHandler } from '../../../redux/user/action';
+import { curMenuHandler } from '../../../redux/menu/action';
+import { bypassCheckHandler, loginHandler } from '../../../redux/user/action';
 
 const Login = () => {
     const [id, setId] = useState('');
@@ -18,7 +19,8 @@ const Login = () => {
     const [bypass, setBypass] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log("로그인");
+    const loc = useLocation();
+    console.log("로그인",useLocation());
 
      const loginInfo = useSelector(state => state.userReducer.loginInfo);
      const loginChkInfo = useSelector(state => state.userReducer.loginChkInfo);
@@ -27,16 +29,18 @@ const Login = () => {
         if(loginInfo.id != null && loginInfo.id !== '') {
           setId(loginInfo.id);
         }
+        
+        dispatch(curMenuHandler({no:1, name:'로그인', link: loc.pathname}));
      },[]);
 
      useEffect(() => {
-        console.log("loginChkInfo:",loginChkInfo);
-        if(!loginChkInfo.status && loginChkInfo.msg != '') {
-        alert(loginChkInfo.msg);
-      } else if(loginChkInfo && loginChkInfo.msg != '') {
-        alert(loginChkInfo.msg);
-        navigate("/main/home");
-      } 
+        console.log("로그인 useEffect:",loginChkInfo);
+        if(!loginChkInfo.status && loginChkInfo.msg !== '') {
+          alert(loginChkInfo.msg);
+        } else if(loginChkInfo && loginChkInfo.msg !== '') {
+          alert(loginChkInfo.msg);
+          navigate("/main/home");
+        } 
    },[loginChkInfo]);
 
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
     Form,
     FormGroup,
@@ -10,6 +10,7 @@ import {
     Button
 
 } from 'reactstrap';
+import { curMenuHandler } from '../../../redux/menu/action';
 import { signupHandler } from '../../../redux/user/action';
 
 const Signup = () => {
@@ -18,6 +19,11 @@ const Signup = () => {
     const [name, setName] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const loc = useLocation();
+
+    useEffect(() => {
+        dispatch(curMenuHandler({no:2, name:'회원가입', link: loc.pathname}));
+    },[])
 
     const onChangeId = (e) => {
         setId(e.target.value);

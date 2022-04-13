@@ -1,4 +1,4 @@
-import { LOGIN, SIGNUP, BYPASS_CHECK } from "./actionType"
+import { LOGIN, SIGNUP, LOGOUT, BYPASS_CHECK, BYPASS_LOGIN } from "./actionType"
 
 export const bypassCheckHandler = () => {
     return {
@@ -20,16 +20,15 @@ export const signupHandler = (param) => {
     }
 }
 
-// export const removeUserHandler = (userId) => {
-//     return {
-//         type: REMOVE_USER,
-//         payload: userId
-//     }
-// }
+export const logoutHandler = (param) => {
+    return {
+        type: LOGOUT,
+        payload : param
+    }
+}
 
-// export const editUserHandler = (targetUser) => {
-//     return {
-//         type: EDIT_USER,
-//         payload: targetUser
-//     }
-// }
+export const bypassLogin = () => {
+    return {
+        type: BYPASS_LOGIN
+    }
+}

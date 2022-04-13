@@ -1,4 +1,4 @@
-import { LOGIN, SIGNUP, BYPASS_CHECK } from "./actionType"
+import { LOGIN, SIGNUP, BYPASS_CHECK, LOGOUT, BYPASS_LOGIN } from "./actionType"
 
 const initialState = {
     loginInfo: localStorage.getItem('loginInfo') == null ? {bypass: false, id:'',password:'',name:''} : JSON.parse(localStorage.getItem('loginInfo')),
@@ -54,6 +54,17 @@ const userReducer = (state=initialState, action) => {
                     ...state,
                     loginInfo: {bypass: false, id:action.payload.id, password:'',name:''},
                 };
+            case LOGOUT:
+                return {
+                    ...state,
+                    loginChkInfo : {status: false, msg: ""},
+                    loginInfo: {bypass: false, id:action.payload, password:'',name:''},
+                }
+            case BYPASS_LOGIN:
+                return {
+                    ...state,
+                    loginChkInfo : {status: true, msg: "로그인 성공!"}
+                }
         default: return state;
     }
 }
