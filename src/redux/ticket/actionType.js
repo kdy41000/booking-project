@@ -1,0 +1,1 @@
+export const GET_TICKET_LIST = 'ticket/GET_TICKET_LIST';

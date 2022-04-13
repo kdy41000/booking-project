@@ -35,7 +35,7 @@ function App() {
           <CardHeader tag="h3">
             <Header/>
           </CardHeader>    
-         <CardBody style={{height:'83vh'}}>
+         <CardBody style={{height:'83vh', overflowY:'scroll'}}>
             <RouteControl />
          </CardBody>
          <CardFooter className="text-muted">

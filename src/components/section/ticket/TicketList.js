@@ -1,20 +1,43 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 import {
     Table,
     ListGroup,ListGroupItem, Button
 } from 'reactstrap'
 import { curMenuHandler } from '../../../redux/menu/action';
+import { getTicketListHandler } from '../../../redux/ticket/action';
 
 const TicketList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loc = useLocation();
 
+    const ticketList = useSelector(state => state.ticketReducer.ticketList);
+
     useEffect(() => {
         dispatch(curMenuHandler({no:4, name:'항공권 목록', link: loc.pathname}));
      },[]);
+
+     const T = ticketList.map((ticket => 
+                                    <tr>
+                                        <th scope="row">
+                                            {ticket.no}
+                                        </th>
+                                        <td>
+                                            {ticket.arrivalAreaName}
+                                        </td>
+                                        <td>
+                                            {ticket.departureDate}
+                                        </td>
+                                        <td>
+                                            {ticket.price}
+                                        </td>
+                                        <td>
+                                            <Button>예약진행</Button>
+                                        </td>
+                                    </tr>
+                            ))
 
     return (
         <div>
@@ -38,48 +61,16 @@ const TicketList = () => {
                     출발일시
                 </th>
                 <th>
-                    도착일시
+                    가격
                 </th>
                 <th>
                     예약진행하기
                 </th>
+                
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <th scope="row">
-                    1
-                </th>
-                <td>
-                    대만
-                </td>
-                <td>
-                    2022-04-13 14:00
-                </td>
-                <td>
-                    2022-04-13 14:00
-                </td>
-                <td>
-                    <Button>예약진행</Button>
-                </td>
-                </tr>
-                <tr>
-                <th scope="row">
-                    2
-                </th>
-                <td>
-                    영국
-                </td>
-                <td>
-                    2022-04-13 14:00
-                </td>
-                <td>
-                    2022-04-13 14:00
-                </td>
-                <td>
-                    <Button>예약진행</Button>
-                </td>
-                </tr>
+                {T}
             </tbody>
         </Table>
         </div>
